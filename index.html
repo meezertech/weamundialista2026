@@ -84,6 +84,10 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
 .vs{font-family:'Space Mono';font-size:11px;color:var(--faint)}
 .ft-tag{font-family:'Space Mono';font-size:8.5px;letter-spacing:.14em;color:var(--gold)}
 .upcoming{font-family:'Space Mono';font-size:8.5px;letter-spacing:.12em;color:var(--faint)}
+.final-score{font-family:'Anton';font-size:26px;letter-spacing:.04em;display:flex;align-items:center;gap:11px}
+.final-score .dash{color:var(--faint);font-size:15px}
+.final-score .gw{color:var(--pitch)}
+.final-score.none{color:var(--faint);font-size:15px;letter-spacing:.18em}
 
 /* by-player */
 .pp{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 16px 13px;margin-bottom:9px;position:relative;transition:.16s}
@@ -135,9 +139,10 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
 .lb-row:hover{border-color:var(--line2)}
 .lb-rank{font-family:'Anton';font-size:19px;color:var(--mute);text-align:center}
 .lb-id{display:flex;align-items:center;gap:11px;min-width:0}
-.avatar{width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;font-family:'Anton';font-size:16px;color:#06140c}
-.lb-name{font-weight:800;font-size:15px}
-.lb-bar{height:5px;border-radius:99px;background:rgba(255,255,255,.08);margin-top:6px;overflow:hidden;max-width:280px}
+.avatar{width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;background:linear-gradient(160deg,#141c2b,#0a0f18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);overflow:hidden}
+.avatar svg{width:100%;height:100%;display:block}
+.lb-name{font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:clamp(120px,38vw,240px)}
+.lb-bar{height:5px;border-radius:99px;background:rgba(255,255,255,.08);margin-top:6px;overflow:hidden;width:clamp(120px,38vw,240px)}
 .lb-bar i{display:block;height:100%;border-radius:99px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
 .lb-stats{text-align:right;white-space:nowrap}
 .lb-pts{font-family:'Anton';font-size:26px;line-height:1}
@@ -194,7 +199,7 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
     </div>
   </div>
   <nav class="tabs" id="tabs">
-    <button class="tab active" data-view="results">📋 Enter Results</button>
+    <button class="tab active" data-view="results">📋 Results</button>
     <button class="tab" data-view="board">🏅 Standings</button>
     <button class="tab" data-view="player">🎯 By Player</button>
     <button class="tab" data-view="players">👤 Players</button>
@@ -206,7 +211,7 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
   <section class="view show" id="view-results">
     <div class="bar">
       <span class="pb-label" style="color:var(--gold)">Official results</span>
-      <span style="font-size:12.5px;color:var(--mute)">Enter the final score of each match as it's played — standings update instantly. Saved in this browser.</span>
+      <span style="font-size:12.5px;color:var(--mute)">Final scores as recorded — read only. Winners highlighted.</span>
       <div class="md-filter" id="mdFilterR">
         <button data-md="0" class="on">All</button><button data-md="1">MD1</button><button data-md="2">MD2</button><button data-md="3">MD3</button>
       </div>
@@ -245,7 +250,6 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
       <span class="hint">8 locked entries · tap a card to view their picks</span>
     </div>
     <div class="players-grid" id="playersGrid"></div>
-    <div class="toolbar"><span class="sp"></span><button class="btn" id="clearResults">Clear all entered results</button></div>
   </section>
 </main>
 
@@ -263,9 +267,32 @@ const SEED_RESULTS={"1":["2","0"],"2":["2","1"]};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const flag=t=>F[t]||"🏳️";
 const initials=n=>n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+function shade(hex,p){const n=parseInt(hex.slice(1),16);let r=(n>>16)&255,g=(n>>8)&255,b=n&255;const f=x=>Math.max(0,Math.min(255,Math.round(x*(1+p))));return '#'+((1<<24)+(f(r)<<16)+(f(g)<<8)+f(b)).toString(16).slice(1);}
+function crewmate(color,dunce){
+  const dark=shade(color,-0.30);
+  const hat=dunce?`<path d="M50,3 L66,24 L34,24 Z" fill="#f3e7c6" stroke="#cdb988" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="33" y="21.5" width="34" height="5" rx="2.5" fill="#e7d6a6"/>
+    <circle cx="50" cy="4" r="3" fill="#e7d6a6"/>
+    <text x="50" y="20" text-anchor="middle" font-family="Anton, sans-serif" font-size="11" fill="#b29f6a">D</text>`:'';
+  return `<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true">
+    <rect x="63" y="34" width="12" height="27" rx="6" fill="${dark}"/>
+    <path d="M30,38 C30,24 38,16 50,16 C62,16 70,24 70,38 L70,78 C70,80.5 68.5,82 66,82 L58,82 C55.5,82 54,80.5 54,78 L54,68 L46,68 L46,78 C46,80.5 44.5,82 42,82 L34,82 C31.5,82 30,80.5 30,78 Z" fill="${color}" stroke="${dark}" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="35" y="29" width="30" height="16" rx="8" fill="#cdeeff" stroke="#86c4e0" stroke-width="2.5"/>
+    <ellipse cx="44" cy="34" rx="4.2" ry="2.8" fill="#ffffff" opacity=".85"/>
+    ${hat}
+  </svg>`;
+}
+function dunceId(){const st=standings();if(!st.some(p=>p.scored>0))return null;return st[st.length-1].id;}
 
 let RES=load();
-function load(){try{const r=JSON.parse(localStorage.getItem(KEY));if(r)return r;}catch(e){}return JSON.parse(JSON.stringify(SEED_RESULTS));}
+function load(){
+  // Published build: SEED_RESULTS are the official source of truth and always win,
+  // so re-pushing an updated index.html updates every visitor (no stale browser cache).
+  // Any non-official matches a visitor fills in stay as a personal local overlay.
+  let stored={};
+  try{stored=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){}
+  return Object.assign({}, stored, JSON.parse(JSON.stringify(SEED_RESULTS)));
+}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(RES));}catch(e){}}
 
 function pointsFor(pred,res){
@@ -301,36 +328,19 @@ function renderResults(){
     ms.forEach(m=>{
       const r=RES[m.n]||["",""];const done=r[0]!==""&&r[1]!=="";
       const hw=done&&+r[0]>+r[1],aw=done&&+r[1]>+r[0];
+      const scoreHtml=done
+        ? `<div class="final-score"><span class="${hw?'gw':''}">${r[0]}</span><span class="dash">–</span><span class="${aw?'gw':''}">${r[1]}</span></div>`
+        : `<div class="final-score none">— vs —</div>`;
       const c=document.createElement('div');c.className='match';
       c.innerHTML=`<span class="mn">#${m.n} · GRP ${m.g}</span>
         <span class="when">${m.dow} ${m.d.replace(', 2026','')} · ${m.t}</span>
         <div class="side home"><span class="flag">${flag(m.h)}</span><span class="tname ${hw?'win':aw?'lose':''}">${m.h}</span></div>
         <div class="center">
-          <div class="score-in">
-            <input type="number" min="0" max="99" inputmode="numeric" class="${r[0]!==''?'filled':''}" data-n="${m.n}" data-i="0" value="${r[0]}">
-            <span class="vs">v</span>
-            <input type="number" min="0" max="99" inputmode="numeric" class="${r[1]!==''?'filled':''}" data-n="${m.n}" data-i="1" value="${r[1]}">
-          </div>
+          ${scoreHtml}
           <span class="${done?'ft-tag':'upcoming'}">${done?'FULL TIME':'NOT PLAYED'}</span>
         </div>
         <div class="side away"><span class="flag">${flag(m.a)}</span><span class="tname ${aw?'win':hw?'lose':''}">${m.a}</span></div>`;
       wrap.appendChild(c);
-    });
-  });
-  wrap.querySelectorAll('input').forEach(inp=>{
-    inp.addEventListener('input',()=>{
-      let v=inp.value.replace(/[^0-9]/g,'').slice(0,2);inp.value=v;
-      const n=+inp.dataset.n,i=+inp.dataset.i;
-      if(!RES[n])RES[n]=["",""];RES[n][i]=v;
-      inp.classList.toggle('filled',v!=="");
-      save();refreshStats();
-      // live update of the FT tag + winner highlight for this row
-      const row=inp.closest('.match');const r=RES[n];const done=r[0]!==""&&r[1]!=="";
-      row.querySelector('.center span:last-child').className=done?'ft-tag':'upcoming';
-      row.querySelector('.center span:last-child').textContent=done?'FULL TIME':'NOT PLAYED';
-      const hw=done&&+r[0]>+r[1],aw=done&&+r[1]>+r[0];
-      row.querySelector('.side.home .tname').className='tname '+(hw?'win':aw?'lose':'');
-      row.querySelector('.side.away .tname').className='tname '+(aw?'win':hw?'lose':'');
     });
   });
 }
@@ -343,14 +353,14 @@ function renderBoard(){
   const empty=$('#boardEmpty'),pod=$('#podium'),list=$('#boardList');
   empty.innerHTML='';pod.innerHTML='';list.innerHTML='';
   if(!anyScored){
-    empty.innerHTML=`<div class="callout">No results entered yet — every entry sits on <b>0</b>.<br>Head to <b>Enter Results</b> and the table will rank itself as scores come in.</div>`;
+    empty.innerHTML=`<div class="callout">No results recorded yet — every entry sits on <b>0</b>. The table ranks itself once results are in.</div>`;
   }
   [1,0,2].forEach(idx=>{
     const r=st[idx];if(!r)return;const rank=idx+1;
     const el=document.createElement('div');el.className=`pod g${rank}`;
     el.innerHTML=`${rank===1?'<div class="crown">👑</div>':''}
       <div class="rk">${rank===1?'1ST':rank===2?'2ND':'3RD'}</div>
-      <div class="avatar" style="background:${r.color};margin:0 auto">${initials(r.name)}</div>
+      <div class="avatar" style="margin:0 auto">${crewmate(r.color, r.id===dunceId())}</div>
       <div class="nm">${r.name}</div>
       <div class="sc">${r.total}<small>PTS</small></div>
       <div class="meta">${r.exact} exact · ${r.correct} result</div>`;
@@ -359,7 +369,7 @@ function renderBoard(){
   st.forEach((r,i)=>{
     const el=document.createElement('div');el.className='lb-row';
     el.innerHTML=`<div class="lb-rank">${i+1}</div>
-      <div class="lb-id"><div class="avatar" style="background:${r.color}">${initials(r.name)}</div>
+      <div class="lb-id"><div class="avatar">${crewmate(r.color, r.id===dunceId())}</div>
         <div style="min-width:0"><div class="lb-name">${r.name}</div>
           <div class="lb-bar"><i style="width:${Math.round(r.total/max*100)}%;background:${r.color}"></i></div></div></div>
       <div class="lb-stats"><div class="lb-pts">${r.total}<small>PTS</small></div>
@@ -375,7 +385,7 @@ function renderPlayer(){
   const st=standings(),rk=rankMap(st);
   $('#whoColor').style.background=pl.color;
   $('#playerSummary').innerHTML=`<div class="psum">
-    <div class="avatar" style="background:${pl.color}">${initials(pl.name)}</div>
+    <div class="avatar">${crewmate(pl.color, pl.id===dunceId())}</div>
     <div><div class="pn">${pl.name}</div>
       <div class="prk">${t.scored?`Currently <b style="color:var(--ink)">#${rk[pl.id]}</b> of ${PLAYERS.length} · ${t.scored}/72 matches scored`:'Picks locked in · waiting on results'}</div></div>
     <div class="pstats">
@@ -413,7 +423,7 @@ function renderPlayers(){
   st.forEach((r,i)=>{
     const el=document.createElement('div');el.className='pcard';
     el.innerHTML=`<div class="rkbig">${anyScored?i+1:'•'}</div>
-      <div class="avatar" style="background:${r.color}">${initials(r.name)}</div>
+      <div class="avatar">${crewmate(r.color, r.id===dunceId())}</div>
       <div class="pinfo"><div class="pn">${r.name}</div>
         <div class="ps">${anyScored?`${r.total} pts · ${r.exact} exact · ${r.correct} result`:'72 picks locked · awaiting results'}</div></div>`;
     el.onclick=()=>openPlayer(r.id);
@@ -449,7 +459,6 @@ $$('#tabs .tab').forEach(t=>t.onclick=()=>{
 $$('#mdFilterR button').forEach(b=>b.onclick=()=>{$$('#mdFilterR button').forEach(x=>x.classList.remove('on'));b.classList.add('on');mdFR=+b.dataset.md;renderResults();});
 $$('#mdFilterP button').forEach(b=>b.onclick=()=>{$$('#mdFilterP button').forEach(x=>x.classList.remove('on'));b.classList.add('on');mdFP=+b.dataset.md;renderPlayer();});
 $('#whoSelect').onchange=e=>{cur=e.target.value;syncSelector();renderPlayer();};
-$('#clearResults').onclick=()=>{if(confirm('Clear every entered result? Players\u2019 picks stay locked.')){RES={};save();refreshStats();renderResults();}};
 
 refreshStats();syncSelector();renderResults();
 </script>
