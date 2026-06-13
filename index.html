@@ -121,6 +121,34 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
 
 .board-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
 .board-intro h2{font-family:'Anton';font-size:30px;letter-spacing:.02em;text-transform:uppercase}
+.smx-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.smx{border-collapse:collapse;width:100%;min-width:max-content}
+.smx th,.smx td{padding:11px 12px;text-align:center;white-space:nowrap;border-bottom:1px solid var(--line)}
+.smx thead th{background:rgba(255,255,255,.03);font-size:11px;font-weight:700;color:var(--mute);letter-spacing:.04em;vertical-align:bottom}
+.smx tbody tr{cursor:pointer;transition:background .14s}
+.smx tbody tr:hover{background:var(--panel-strong)}
+.smx tbody tr:last-child td{border-bottom:none}
+.smx .sticky{position:sticky;left:0;background:var(--bg2);text-align:left;z-index:2}
+.smx thead .sticky{z-index:3}
+.smx .pcell{display:flex;align-items:center;gap:9px}
+.smx .rkc{font-family:'Anton';font-size:14px;color:var(--mute);min-width:15px;text-align:right}
+.smx .dot{width:11px;height:11px;border-radius:3px;flex:none}
+.smx .av{width:30px;height:30px;flex:none;display:inline-grid;place-items:center}
+.smx .av svg{display:block;width:100%;height:100%}
+.smx .pn{font-weight:700;font-size:13.5px}
+.smx .mhdr .fl{font-size:15px;letter-spacing:2px}
+.smx .mhdr .rs{display:block;font-family:'Space Mono';font-size:10.5px;color:var(--mute);margin-top:3px;font-weight:700}
+.smx .pick{font-family:'Space Mono';font-weight:700;font-size:12.5px;border-radius:7px;padding:5px 9px;display:inline-block;min-width:40px}
+.smx .pick.e{background:rgba(39,224,122,.16);color:var(--pitch)}
+.smx .pick.r{background:rgba(244,200,66,.15);color:var(--gold)}
+.smx .pick.m{background:rgba(255,255,255,.04);color:var(--faint)}
+.smx .totc{font-family:'Anton';font-size:17px}
+.smx-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:13px;font-size:11.5px;color:var(--mute);padding-left:2px}
+.smx-legend span{display:flex;align-items:center;gap:6px}
+.smx-legend i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.smx-legend i.e{background:rgba(39,224,122,.5)}
+.smx-legend i.r{background:rgba(244,200,66,.5)}
+.smx-legend i.m{background:rgba(255,255,255,.12)}
 .scoring-note{font-size:12px;color:var(--mute);max-width:380px;line-height:1.5}
 .scoring-note b{color:var(--pitch)}
 .podium{display:grid;grid-template-columns:1fr 1.18fr 1fr;gap:12px;align-items:end;margin-bottom:26px}
@@ -281,7 +309,16 @@ function crewmate(color,dunce){
     ${hat}
   </svg>`;
 }
-function dunceId(){const st=standings();if(!st.some(p=>p.scored>0))return null;return st[st.length-1].id;}
+function dunceSet(){
+  // The dunce cap goes to EVERY player tied for last — not an arbitrary single one.
+  const st=standings();
+  if(!st.some(p=>p.scored>0)) return new Set();        // no results yet -> nobody
+  const totals=st.map(p=>p.total);
+  const min=Math.min(...totals), max=Math.max(...totals);
+  if(min===max) return new Set();                       // everyone level -> no clear loser
+  return new Set(st.filter(p=>p.total===min).map(p=>p.id));
+}
+function isDunce(id){ return dunceSet().has(id); }
 
 // Read-only build: official results come ONLY from the baked-in SEED_RESULTS.
 // No browser storage is read or written, so nothing can shadow these with stale data.
@@ -352,23 +389,29 @@ function renderBoard(){
     const el=document.createElement('div');el.className=`pod g${rank}`;
     el.innerHTML=`${rank===1?'<div class="crown">👑</div>':''}
       <div class="rk">${rank===1?'1ST':rank===2?'2ND':'3RD'}</div>
-      <div class="avatar" style="margin:0 auto">${crewmate(r.color, r.id===dunceId())}</div>
+      <div class="avatar" style="margin:0 auto">${crewmate(r.color, isDunce(r.id))}</div>
       <div class="nm">${r.name}</div>
       <div class="sc">${r.total}<small>PTS</small></div>
       <div class="meta">${r.exact} exact · ${r.correct} result</div>`;
     pod.appendChild(el);
   });
-  st.forEach((r,i)=>{
-    const el=document.createElement('div');el.className='lb-row';
-    el.innerHTML=`<div class="lb-rank">${i+1}</div>
-      <div class="lb-id"><div class="avatar">${crewmate(r.color, r.id===dunceId())}</div>
-        <div style="min-width:0"><div class="lb-name">${r.name}</div>
-          <div class="lb-bar"><i style="width:${Math.round(r.total/max*100)}%;background:${r.color}"></i></div></div></div>
-      <div class="lb-stats"><div class="lb-pts">${r.total}<small>PTS</small></div>
-        <div class="lb-sub"><span class="ex">${r.exact} exact</span> · <span class="ok">${r.correct} result</span> · ${r.scored} played</div></div>`;
-    el.onclick=()=>openPlayer(r.id);
-    list.appendChild(el);
-  });
+  const played=M.filter(m=>resOf(m.n)).sort((a,b)=>a.n-b.n);
+  if(played.length){
+    let head=`<th class="sticky">Player</th>`;
+    played.forEach(m=>{const r=resOf(m.n);const hw=+r[0]>+r[1],aw=+r[1]>+r[0];
+      head+=`<th class="mhdr"><span class="fl">${flag(m.h)} ${flag(m.a)}</span><span class="rs"><span style="${hw?'color:var(--pitch)':''}">${r[0]}</span>–<span style="${aw?'color:var(--pitch)':''}">${r[1]}</span></span></th>`;});
+    head+=`<th>PTS</th>`;
+    let body='';
+    st.forEach((r,i)=>{
+      let cells='';
+      played.forEach(m=>{const pk=r.preds[m.n];const pt=pointsFor(pk,resOf(m.n));const c=pt===3?'e':pt===2?'r':'m';
+        cells+=`<td><span class="pick ${c}">${pk[0]}-${pk[1]}</span></td>`;});
+      body+=`<tr data-id="${r.id}"><td class="sticky"><div class="pcell"><span class="rkc">${i+1}</span><span class="av">${crewmate(r.color, isDunce(r.id))}</span><span class="pn">${r.name}</span></div></td>${cells}<td class="totc">${r.total}</td></tr>`;
+    });
+    list.innerHTML=`<div class="smx-wrap"><table class="smx"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>
+      <div class="smx-legend"><span><i class="e"></i>Exact score +3</span><span><i class="r"></i>Correct result +2</span><span><i class="m"></i>Missed</span></div>`;
+    list.querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>openPlayer(tr.dataset.id));
+  }
 }
 
 /* BY PLAYER */
@@ -377,7 +420,7 @@ function renderPlayer(){
   const st=standings(),rk=rankMap(st);
   $('#whoColor').style.background=pl.color;
   $('#playerSummary').innerHTML=`<div class="psum">
-    <div class="avatar">${crewmate(pl.color, pl.id===dunceId())}</div>
+    <div class="avatar">${crewmate(pl.color, isDunce(pl.id))}</div>
     <div><div class="pn">${pl.name}</div>
       <div class="prk">${t.scored?`Currently <b style="color:var(--ink)">#${rk[pl.id]}</b> of ${PLAYERS.length} · ${t.scored}/72 matches scored`:'Picks locked in · waiting on results'}</div></div>
     <div class="pstats">
@@ -415,7 +458,7 @@ function renderPlayers(){
   st.forEach((r,i)=>{
     const el=document.createElement('div');el.className='pcard';
     el.innerHTML=`<div class="rkbig">${anyScored?i+1:'•'}</div>
-      <div class="avatar">${crewmate(r.color, r.id===dunceId())}</div>
+      <div class="avatar">${crewmate(r.color, isDunce(r.id))}</div>
       <div class="pinfo"><div class="pn">${r.name}</div>
         <div class="ps">${anyScored?`${r.total} pts · ${r.exact} exact · ${r.correct} result`:'72 picks locked · awaiting results'}</div></div>`;
     el.onclick=()=>openPlayer(r.id);
