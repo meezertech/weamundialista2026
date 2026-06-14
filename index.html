@@ -283,7 +283,7 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
 
 <div class="foot">
   72 group-stage fixtures · 48 teams · 12 groups (A–L). Eight entries with <b>locked submitted picks</b>: saltamuros, Bin Laden, Bazuma Naatsuki, Alan Brito, john pork, esoesqueso, Querubin&amp;Kaiser31, Chiang Kai-shek.
-  Matchday 1 — results in: Mexico 2–0 South Africa, South Korea 2–1 Czechia, Canada 1–1 Bosnia &amp; Herzegovina, United States 4–1 Paraguay, Switzerland 1–1 Qatar, Brazil 1–1 Morocco, Scotland 1–0 Haiti, Australia 2–0 Türkiye. Standings update as official scores are recorded. Scoring: <b>+3</b> exact, <b>+2</b> correct result.
+  Matchday 1 in progress — latest: Germany 7–1 Curaçao, Netherlands 2–2 Japan. Standings update as official scores are recorded. Scoring: <b>+3</b> exact, <b>+2</b> correct result. Picks are locked from each player's submitted file.
 </div>
 
 <script>
@@ -293,7 +293,7 @@ const M=DATA.M, F=DATA.F, PLAYERS=DATA.players;
 const GLABEL={C:'D',D:'C'};
 M.forEach(m=>{ if(GLABEL[m.g]) m.g=GLABEL[m.g]; });
 const GROUPS=[...new Set(M.map(m=>m.g))].sort();
-const SEED_RESULTS={"1":["2","0"],"2":["2","1"],"3":["1","1"],"4":["4","1"],"5":["1","1"],"6":["1","1"],"7":["0","1"],"8":["2","0"]};
+const SEED_RESULTS={"1":["2","0"],"2":["2","1"],"3":["1","1"],"4":["4","1"],"5":["1","1"],"6":["1","1"],"7":["0","1"],"8":["2","0"],"9":["7","1"],"11":["2","2"]};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const flag=t=>F[t]||"🏳️";
 const initials=n=>n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
