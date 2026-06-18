@@ -152,11 +152,6 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
 .smx-legend i.e{background:rgba(39,224,122,.5)}
 .smx-legend i.r{background:rgba(244,200,66,.5)}
 .smx-legend i.m{background:rgba(255,255,255,.12)}
-.smx .liveb{color:#ff5252;font-weight:800;font-size:9px;letter-spacing:.06em;animation:lvpulse 1.1s ease-in-out infinite}
-.smx .lvh{background:rgba(255,82,82,.07)}
-.smx .pick.live{background:rgba(255,82,82,.12);color:var(--ink);border:1px solid rgba(255,82,82,.4)}
-.smx-legend i.lv{background:rgba(255,82,82,.55)}
-@keyframes lvpulse{0%,100%{opacity:1}50%{opacity:.35}}
 .scoring-note{font-size:12px;color:var(--mute);max-width:380px;line-height:1.5}
 .scoring-note b{color:var(--pitch)}
 .podium{display:grid;grid-template-columns:1fr 1.18fr 1fr;gap:12px;align-items:end;margin-bottom:26px}
@@ -292,7 +287,7 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
 
 <div class="foot">
   72 group-stage fixtures · 48 teams · 12 groups (A–L). Eight entries with <b>locked submitted picks</b>: saltamuros, Bin Laden, Bazuma Naatsuki, Alan Brito, john pork, esoesqueso, Querubin&amp;Kaiser31, Chiang Kai-shek.
-  Matchday 1 in progress — latest: Austria 3–1 Jordan. Standings update as official scores are recorded. Scoring: <b>+3</b> exact, <b>+2</b> correct result. Picks are locked from each player's submitted file.
+  Matchday 1 in progress — latest: Sweden 5–1 Tunisia, Spain 0–0 Cape Verde. Standings update as official scores are recorded. Scoring: <b>+3</b> exact, <b>+2</b> correct result. Picks are locked from each player's submitted file.
 </div>
 
 
@@ -304,10 +299,8 @@ const GLABEL={C:'D',D:'C'};
 M.forEach(m=>{ if(GLABEL[m.g]) m.g=GLABEL[m.g]; });
 const GROUPS=[...new Set(M.map(m=>m.g))].sort();
 // Results in the order matches were played (newest last). Each entry: [matchNo, homeScore, awayScore].
-const SEED_RESULTS=[[1,"2","0"],[2,"2","1"],[3,"1","1"],[4,"4","1"],[5,"1","1"],[6,"1","1"],[7,"0","1"],[8,"2","0"],[9,"7","1"],[11,"2","2"],[10,"1","0"],[12,"5","1"],[15,"0","0"],[13,"1","1"],[14,"2","2"],[16,"1","1"],[17,"3","1"],[18,"1","4"],[19,"3","0"],[20,"3","1"]];
+const SEED_RESULTS=[[1,"2","0"],[2,"2","1"],[3,"1","1"],[4,"4","1"],[5,"1","1"],[6,"1","1"],[7,"0","1"],[8,"2","0"],[9,"7","1"],[11,"2","2"],[10,"1","0"],[12,"5","1"],[15,"0","0"]];
 const PLAY_ORDER=SEED_RESULTS.map(r=>r[0]);
-// Matches currently in progress (no final score yet) — shown in the matrix with a LIVE tag, unscored.
-const LIVE=[];
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const flag=t=>F[t]||"🏳️";
 const initials=n=>n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
@@ -412,26 +405,20 @@ function renderBoard(){
       <div class="meta">${r.exact} exact · ${r.correct} result</div>`;
     pod.appendChild(el);
   });
-  const playedCols=PLAY_ORDER.map(n=>M.find(m=>m.n===n)).filter(m=>m&&resOf(m.n)).reverse();
-  const liveCols=LIVE.map(n=>M.find(m=>m.n===n)).filter(m=>m&&!resOf(m.n));
-  const cols=[...liveCols.map(m=>({m,live:true})),...playedCols.map(m=>({m,live:false}))];
-  if(cols.length){
+  const played=PLAY_ORDER.map(n=>M.find(m=>m.n===n)).filter(m=>m&&resOf(m.n));
+  if(played.length){
     let head=`<th class="sticky">Player</th><th class="ptc">PTS</th>`;
-    cols.forEach(({m,live})=>{
-      if(live){head+=`<th class="mhdr lvh"><span class="fl">${flag(m.h)} ${flag(m.a)}</span><span class="rs"><span class="liveb">● LIVE</span></span></th>`;}
-      else{const r=resOf(m.n);const hw=+r[0]>+r[1],aw=+r[1]>+r[0];
-        head+=`<th class="mhdr"><span class="fl">${flag(m.h)} ${flag(m.a)}</span><span class="rs"><span style="${hw?'color:var(--pitch)':''}">${r[0]}</span>–<span style="${aw?'color:var(--pitch)':''}">${r[1]}</span></span></th>`;}});
+    played.forEach(m=>{const r=resOf(m.n);const hw=+r[0]>+r[1],aw=+r[1]>+r[0];
+      head+=`<th class="mhdr"><span class="fl">${flag(m.h)} ${flag(m.a)}</span><span class="rs"><span style="${hw?'color:var(--pitch)':''}">${r[0]}</span>–<span style="${aw?'color:var(--pitch)':''}">${r[1]}</span></span></th>`;});
     let body='';
     st.forEach((r,i)=>{
       let cells='';
-      cols.forEach(({m,live})=>{const pk=r.preds[m.n];
-        if(live){cells+=`<td><span class="pick live">${pk[0]}-${pk[1]}</span></td>`;}
-        else{const pt=pointsFor(pk,resOf(m.n));const c=pt===3?'e':pt===2?'r':'m';
-          cells+=`<td><span class="pick ${c}">${pk[0]}-${pk[1]}</span></td>`;}});
+      played.forEach(m=>{const pk=r.preds[m.n];const pt=pointsFor(pk,resOf(m.n));const c=pt===3?'e':pt===2?'r':'m';
+        cells+=`<td><span class="pick ${c}">${pk[0]}-${pk[1]}</span></td>`;});
       body+=`<tr data-id="${r.id}"><td class="sticky"><div class="pcell"><span class="rkc">${i+1}</span><span class="av">${crewmate(r.color, isDunce(r.id))}</span><span class="pn" title="${r.name}">${r.name}</span></div></td><td class="totc">${r.total}</td>${cells}</tr>`;
     });
     list.innerHTML=`<div class="smx-wrap"><table class="smx"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>
-      <div class="smx-legend"><span><i class="e"></i>Exact score +3</span><span><i class="r"></i>Correct result +2</span><span><i class="m"></i>Missed</span><span><i class="lv"></i>Live · prediction (unscored)</span></div>`;
+      <div class="smx-legend"><span><i class="e"></i>Exact score +3</span><span><i class="r"></i>Correct result +2</span><span><i class="m"></i>Missed</span></div>`;
     list.querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>openPlayer(tr.dataset.id));
   }
 }
