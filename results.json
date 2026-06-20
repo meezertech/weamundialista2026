@@ -35,7 +35,7 @@
     { "match": "Turkey vs Paraguay"                      , "score": "0-1" },
     { "match": "Germany vs Ivory Coast"                  , "score": "" },
     { "match": "Ecuador vs Curaçao"                      , "score": "" },
-    { "match": "Netherlands vs Sweden"                   , "score": "" },
+    { "match": "Netherlands vs Sweden"                   , "score": "LIVE" },
     { "match": "Tunisia vs Japan"                        , "score": "" },
     { "match": "Belgium vs Iran"                         , "score": "" },
     { "match": "New Zealand vs Egypt"                    , "score": "" },
