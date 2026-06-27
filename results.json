@@ -71,7 +71,7 @@
     { "match": "Jordan vs Argentina"                     , "score": "" },
     { "match": "Colombia vs Portugal"                    , "score": "" },
     { "match": "DR Congo vs Uzbekistan"                  , "score": "" },
-    { "match": "Croatia vs Ghana"                        , "score": "" },
-    { "match": "Panama vs England"                       , "score": "" }
+    { "match": "Croatia vs Ghana"                        , "score": "LIVE" },
+    { "match": "Panama vs England"                       , "score": "LIVE" }
   ]
 }
