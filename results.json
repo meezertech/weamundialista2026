@@ -69,9 +69,9 @@
     { "match": "Senegal vs Iraq"                         , "score": "5-0" },
     { "match": "Algeria vs Austria"                      , "score": "" },
     { "match": "Jordan vs Argentina"                     , "score": "" },
-    { "match": "Colombia vs Portugal"                    , "score": "" },
-    { "match": "DR Congo vs Uzbekistan"                  , "score": "" },
-    { "match": "Croatia vs Ghana"                        , "score": "LIVE" },
-    { "match": "Panama vs England"                       , "score": "LIVE" }
+    { "match": "Colombia vs Portugal"                    , "score": "LIVE" },
+    { "match": "DR Congo vs Uzbekistan"                  , "score": "LIVE" },
+    { "match": "Croatia vs Ghana"                        , "score": "2-1" },
+    { "match": "Panama vs England"                       , "score": "0-2" }
   ]
 }
