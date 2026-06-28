@@ -67,10 +67,10 @@
     { "match": "Uruguay vs Spain"                        , "score": "0-1" },
     { "match": "Norway vs France"                        , "score": "1-4" },
     { "match": "Senegal vs Iraq"                         , "score": "5-0" },
-    { "match": "Algeria vs Austria"                      , "score": "" },
-    { "match": "Jordan vs Argentina"                     , "score": "" },
-    { "match": "Colombia vs Portugal"                    , "score": "LIVE" },
-    { "match": "DR Congo vs Uzbekistan"                  , "score": "LIVE" },
+    { "match": "Algeria vs Austria"                      , "score": "LIVE" },
+    { "match": "Jordan vs Argentina"                     , "score": "LIVE" },
+    { "match": "Colombia vs Portugal"                    , "score": "0-0" },
+    { "match": "DR Congo vs Uzbekistan"                  , "score": "3-1" },
     { "match": "Croatia vs Ghana"                        , "score": "2-1" },
     { "match": "Panama vs England"                       , "score": "0-2" }
   ]
