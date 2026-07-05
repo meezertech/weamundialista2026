@@ -206,6 +206,61 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
 .foot{max-width:1180px;margin:0 auto;padding:0 22px 50px;color:var(--faint);font-size:11px;line-height:1.6}
 .foot b{color:var(--mute)}
 
+/* ===== KNOCKOUT PHASE ===== */
+:root{--ko:#ff8a3d;--ko-deep:#d5641c;--ko-glow:rgba(255,138,61,.5)}
+.phase-switch{max-width:1180px;margin:0 auto;padding:0 22px 10px;display:flex;gap:8px}
+.pseg{flex:1;max-width:300px;font-family:'Hanken Grotesk';font-weight:800;font-size:13.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);background:var(--panel);border:1px solid var(--line);padding:11px 16px;border-radius:13px;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:9px}
+.pseg:hover{color:var(--ink);border-color:var(--line2)}
+.pseg .pnew{font-family:'Space Mono';font-size:9px;letter-spacing:.06em;background:rgba(255,138,61,.16);color:var(--ko);border:1px solid rgba(255,138,61,.4);border-radius:999px;padding:2px 7px}
+.pseg .pleg{font-family:'Space Mono';font-size:9px;letter-spacing:.08em;color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:2px 7px}
+.pseg.active[data-phase="ko"]{color:#1a0e04;background:linear-gradient(180deg,#ffa257,var(--ko-deep));border-color:transparent;box-shadow:0 8px 22px -10px var(--ko-glow)}
+.pseg.active[data-phase="ko"] .pnew{background:rgba(0,0,0,.18);color:#3a1e08;border-color:rgba(0,0,0,.15)}
+.pseg.active[data-phase="group"]{color:#06140c;background:linear-gradient(180deg,#3cf08a,var(--pitch-dim));border-color:transparent;box-shadow:0 8px 22px -10px rgba(39,224,122,.7)}
+.pseg.active[data-phase="group"] .pleg{color:#0a3a20;border-color:rgba(0,0,0,.12)}
+nav.kotabs .tab.active{color:#1a0e04;background:linear-gradient(180deg,#ffa257,var(--ko-deep));box-shadow:0 8px 22px -10px var(--ko-glow)}
+
+/* round banner */
+.ko-banner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(120deg,rgba(255,138,61,.14),rgba(255,138,61,.03));border:1px solid rgba(255,138,61,.28);border-radius:var(--r);padding:15px 18px;margin-bottom:18px}
+.ko-banner .rico{width:46px;height:46px;border-radius:13px;flex:none;display:grid;place-items:center;font-size:24px;background:radial-gradient(circle at 35% 28%,#3a2411,#1a0e04);border:1px solid rgba(255,138,61,.4)}
+.ko-banner .rtxt{line-height:1.15}
+.ko-banner .rtxt .rk{font-family:'Space Mono';font-size:10px;letter-spacing:.28em;color:var(--ko);text-transform:uppercase}
+.ko-banner .rtxt .rn{font-family:'Anton';font-size:20px;letter-spacing:.02em;text-transform:uppercase;margin-top:2px}
+.ko-banner .rmeta{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.ko-chip{font-size:11.5px;color:var(--mute);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.ko-chip b{color:var(--ink)}
+.ko-chip.mult{color:var(--ko);border-color:rgba(255,138,61,.4);background:rgba(255,138,61,.08);font-family:'Space Mono';font-weight:700;letter-spacing:.02em}
+
+.rules-note{font-size:12px;color:var(--mute);line-height:1.6;max-width:560px}
+.rules-note b{color:var(--ko)}.rules-note .g{color:var(--pitch)}.rules-note .y{color:var(--gold)}.rules-note .s{color:var(--sky)}
+
+/* KO match result card */
+.komatch{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 16px 13px;margin-bottom:9px;position:relative;overflow:hidden}
+.komatch::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:rgba(255,138,61,.5)}
+.komatch:hover{border-color:var(--line2);background:var(--panel-strong)}
+.komatch .mn{position:absolute;top:7px;left:13px;font-family:'Space Mono';font-size:9.5px;color:var(--faint);letter-spacing:.1em}
+.komatch .when{position:absolute;top:7px;right:13px;font-size:10px;color:var(--faint)}
+.ko-center{display:flex;flex-direction:column;align-items:center;gap:5px;padding-top:10px}
+.ko-fs{font-family:'Anton';font-size:26px;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+.ko-fs .dash{color:var(--faint);font-size:15px}.ko-fs .gw{color:var(--ko)}
+.ko-fs.none{color:var(--faint);font-size:15px;letter-spacing:.18em}
+.pen-tag{font-family:'Space Mono';font-size:9px;letter-spacing:.06em;color:var(--sky);background:rgba(61,169,252,.1);border:1px solid rgba(61,169,252,.3);border-radius:999px;padding:2px 9px}
+.pen-tag b{color:var(--ink)}
+.ft-ko{font-family:'Space Mono';font-size:8.5px;letter-spacing:.14em;color:var(--ko)}
+
+/* KO by-player point pills */
+.pts.pk{color:var(--sky);background:rgba(61,169,252,.12)}
+.pp.exact.ko-acc{box-shadow:inset 3px 0 0 var(--ko)}
+.mult-pill{font-family:'Space Mono';font-size:8.5px;letter-spacing:.04em;color:var(--ko);background:rgba(255,138,61,.1);border:1px solid rgba(255,138,61,.3);border-radius:999px;padding:2px 8px}
+.pen-pick{font-family:'Space Mono';font-size:9px;letter-spacing:.02em;padding:2px 8px;border-radius:999px;margin-top:4px}
+.pen-pick.hit{color:var(--sky);background:rgba(61,169,252,.12);border:1px solid rgba(61,169,252,.35)}
+.pen-pick.miss{color:var(--faint);background:rgba(255,255,255,.04)}
+
+/* KO standings accents */
+.smx .pick.pen{box-shadow:inset 0 0 0 1.5px rgba(61,169,252,.55)}
+.smx .totc.ko{color:var(--ko)}
+.pod.g1 .sc small.ko,.psum .pstats .v.tot.ko{color:var(--ko)}
+.smx-legend i.pk{background:rgba(61,169,252,.55)}
+
 @media(max-width:640px){
   .titles h1{font-size:22px}
   .match,.pp{gap:6px;padding:13px 10px}.tname{font-size:12px}.flag{font-size:20px}
@@ -214,6 +269,9 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
   .podium{grid-template-columns:1fr;gap:9px}.pod.g1{order:-1}
   .psum .pstats{width:100%;justify-content:space-around;margin-left:0;gap:8px}
   .head-meta{width:100%;flex-wrap:wrap}
+  .komatch{gap:6px;padding:15px 10px 12px}
+  .phase-switch{padding:0 14px 10px}.pseg{font-size:12px;padding:10px 10px}
+  .ko-banner .rmeta{margin-left:0;width:100%}
 }
 
 </style>
@@ -226,16 +284,26 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
       <div class="titles">
         <div class="kick">FIFA · CAN/MEX/USA</div>
         <h1>World Cup 2026</h1>
-        <div class="sub">Group Stage · Prediction Pool</div>
+        <div class="sub">Prediction Pool · Group + Knockout</div>
       </div>
       <div class="head-meta">
         <div class="badge-live"><span class="dot" style="background:var(--sky);box-shadow:0 0 10px var(--sky)"></span> Picks locked · Live</div>
-        <div class="pill-stat">⚽ <b id="statResults">0</b>/72 played</div>
+        <div class="pill-stat">⚽ <b id="statResults">0</b>/72 group</div>
+        <div class="pill-stat">🏆 <b id="statKo">0</b>/16 R32</div>
         <div class="pill-stat">👥 <b id="statPlayers">0</b> entries</div>
       </div>
     </div>
   </div>
-  <nav class="tabs" id="tabs">
+  <div class="phase-switch" id="phaseSwitch">
+    <button class="pseg active" data-phase="ko">🏆 Knockout <span class="pnew">R32</span></button>
+    <button class="pseg" data-phase="group">⚽ Group Stage <span class="pleg">legacy</span></button>
+  </div>
+  <nav class="tabs kotabs" id="tabsKo">
+    <button class="tab active" data-koview="ko-board">🏆 Standings</button>
+    <button class="tab" data-koview="ko-results">🗓️ Results</button>
+    <button class="tab" data-koview="ko-player">🎯 By Player</button>
+  </nav>
+  <nav class="tabs" id="tabs" hidden>
     <button class="tab active" data-view="results">📋 Results</button>
     <button class="tab" data-view="board">🏅 Standings</button>
     <button class="tab" data-view="player">🎯 By Player</button>
@@ -288,11 +356,49 @@ main{max-width:1180px;margin:0 auto;padding:26px 22px 90px}
     </div>
     <div class="players-grid" id="playersGrid"></div>
   </section>
+
+  <!-- ===== KNOCKOUT: STANDINGS ===== -->
+  <section class="view" id="view-ko-board">
+    <div class="ko-banner">
+      <div class="rico">🏆</div>
+      <div class="rtxt"><div class="rk">Knockout · Live</div><div class="rn">Round of 32</div></div>
+      <div class="rmeta">
+        <span class="ko-chip mult">×1.5 points</span>
+        <span class="ko-chip">⚽ <b id="koPlayed">0</b>/16 played</span>
+      </div>
+    </div>
+    <div class="rules-note" style="margin-bottom:18px">
+      <b>+3</b> exact score · <b>+2</b> correct winner/draw · <b class="s">+1</b> right penalty-shootout winner. All Round-of-32 &amp; Round-of-16 points carry a <b>×1.5</b> multiplier (cuartos/semis ×2, final ×3). <span style="color:var(--faint)">Round of 16 is not scored yet.</span>
+    </div>
+    <div id="koPodium" class="podium"></div>
+    <div id="koBoardList"></div>
+  </section>
+
+  <!-- ===== KNOCKOUT: RESULTS ===== -->
+  <section class="view" id="view-ko-results">
+    <div class="ko-banner">
+      <div class="rico">🗓️</div>
+      <div class="rtxt"><div class="rk">Official results</div><div class="rn">Round of 32</div></div>
+      <div class="rmeta"><span class="ko-chip mult">×1.5 points</span></div>
+    </div>
+    <div id="koResultsList"></div>
+  </section>
+
+  <!-- ===== KNOCKOUT: BY PLAYER ===== -->
+  <section class="view" id="view-ko-player">
+    <div class="bar">
+      <span class="pb-label" style="color:var(--ko)">Knockout picks for</span>
+      <div class="who"><span class="chip-color" id="koWhoColor"></span><select id="koWhoSelect"></select></div>
+    </div>
+    <div id="koPlayerSummary"></div>
+    <div id="koPlayerList"></div>
+  </section>
 </main>
 
 <div class="foot">
-  72 group-stage fixtures · 48 teams · 12 groups (A–L). Eight entries with <b>locked submitted picks</b>: saltamuros, Bin Laden, Bazuma Naatsuki, Alan Brito, john pork, esoesqueso, Querubin&amp;Kaiser31, Chiang Kai-shek.
-  Results &amp; standings load live from <b>results.json</b> — updated as matches finish, with live games tagged in the Standings matrix. Scoring: <b>+3</b> exact, <b>+2</b> correct result. Picks are locked from each player's submitted file.
+  <b>Group stage</b> (legacy): 72 fixtures · scoring <b>+3</b> exact / <b>+2</b> result, loaded from <b>results.json</b>.
+  <b>Knockout</b>: 16 Round-of-32 ties · scoring <b>+3</b> exact / <b>+2</b> winner-or-draw / <b>+1</b> correct shootout winner, all <b>×1.5</b> (cuartos/semis ×2, final ×3), loaded from <b>knockout.json</b>. Round of 16 shown but not scored yet.
+  Eight locked entries: saltamuros, Bin Laden, Bazuma Naatsuki, Alan Brito, john pork, esoesqueso, Querubin&amp;Kaiser31, Chiang Kai-shek.
 </div>
 
 
@@ -544,6 +650,7 @@ function syncSelector(){
 function refreshStats(){
   const n=Object.values(RES).filter(v=>v[0]!==""&&v[1]!=="").length;
   $('#statResults').textContent=n;$('#statPlayers').textContent=PLAYERS.length;
+  if(typeof KRES!=='undefined'){ const k=Object.keys(KRES).length; const el=$('#statKo'); if(el) el.textContent=k; }
 }
 
 $$('#tabs .tab').forEach(t=>t.onclick=()=>{
@@ -559,6 +666,7 @@ $$('#mdFilterP button').forEach(b=>b.onclick=()=>{$$('#mdFilterP button').forEac
 $('#whoSelect').onchange=e=>{cur=e.target.value;syncSelector();renderPlayer();};
 
 function rerender(){ refreshStats(); syncSelector();
+  if(typeof PHASE!=='undefined' && PHASE==='ko'){ if(typeof koRerender==='function') koRerender(); return; }
   const at=$('#tabs .tab.active'); const v=at?at.dataset.view:'results';
   if(v==='board')renderBoard(); else if(v==='player')renderPlayer(); else if(v==='players')renderPlayers(); else renderResults();
 }
@@ -575,6 +683,280 @@ async function loadResults(){
 }
 loadResults();
 setInterval(loadResults,60000); // pick up commits / live flips without a manual reload
+
+/* ============================================================
+   KNOCKOUT PHASE  (Round of 32 scored · R16+ arrives later)
+   Scoring per match: +3 exact · +2 correct winner/draw · +1 correct
+   penalty-shootout winner.  Round multiplier applied to the whole match.
+   ============================================================ */
+const KO_MULT={R32:1.5,R16:1.5,QF:2,SF:2,F:3};
+const KO_RLABEL={R32:'Round of 32',R16:'Round of 16',QF:'Quarter-finals',SF:'Semi-finals',F:'Final'};
+const KO_MATCHES=[
+ {n:1 ,round:'R32',dow:'Sun',d:'Jun 28',t:'14:00',h:'South Africa',a:'Canada'},
+ {n:2 ,round:'R32',dow:'Mon',d:'Jun 29',t:'12:00',h:'Brazil',a:'Japan'},
+ {n:3 ,round:'R32',dow:'Mon',d:'Jun 29',t:'15:30',h:'Germany',a:'Paraguay'},
+ {n:4 ,round:'R32',dow:'Mon',d:'Jun 29',t:'20:00',h:'Netherlands',a:'Morocco'},
+ {n:5 ,round:'R32',dow:'Tue',d:'Jun 30',t:'12:00',h:'Ivory Coast',a:'Norway'},
+ {n:6 ,round:'R32',dow:'Tue',d:'Jun 30',t:'16:00',h:'France',a:'Sweden'},
+ {n:7 ,round:'R32',dow:'Tue',d:'Jun 30',t:'20:00',h:'Mexico',a:'Ecuador'},
+ {n:8 ,round:'R32',dow:'Wed',d:'Jul 01',t:'11:00',h:'England',a:'DR Congo'},
+ {n:9 ,round:'R32',dow:'Wed',d:'Jul 01',t:'15:00',h:'Belgium',a:'Senegal'},
+ {n:10,round:'R32',dow:'Wed',d:'Jul 01',t:'19:00',h:'United States',a:'Bosnia and Herzegovina'},
+ {n:11,round:'R32',dow:'Thu',d:'Jul 02',t:'14:00',h:'Spain',a:'Austria'},
+ {n:12,round:'R32',dow:'Thu',d:'Jul 02',t:'18:00',h:'Portugal',a:'Croatia'},
+ {n:13,round:'R32',dow:'Thu',d:'Jul 02',t:'22:00',h:'Switzerland',a:'Algeria'},
+ {n:14,round:'R32',dow:'Fri',d:'Jul 03',t:'13:00',h:'Australia',a:'Egypt'},
+ {n:15,round:'R32',dow:'Fri',d:'Jul 03',t:'17:00',h:'Argentina',a:'Cape Verde'},
+ {n:16,round:'R32',dow:'Fri',d:'Jul 03',t:'20:30',h:'Colombia',a:'Ghana'}
+];
+// Per-player R32 picks — [predHome, predAway, penWinner 'H'|'A'|null] — parsed from each entry's submitted file.
+const KOPREDS={
+ pl0:{1:[1,3,"A"],2:[3,1,"H"],3:[1,1,"H"],4:[1,1,"A"],5:[1,2,"A"],6:[1,1,"H"],7:[2,1,"H"],8:[2,0,"H"],9:[1,0,"H"],10:[2,0,"H"],11:[2,0,"H"],12:[2,1,"H"],13:[2,0,"H"],14:[1,1,"H"],15:[3,1,"H"],16:[2,0,"H"]},
+ pl1:{1:[0,2,"A"],2:[1,0,"H"],3:[2,1,"H"],4:[1,2,"A"],5:[0,2,"A"],6:[3,0,"H"],7:[1,0,"H"],8:[2,0,"H"],9:[2,1,"H"],10:[2,0,"H"],11:[2,1,"H"],12:[0,1,"A"],13:[1,0,"H"],14:[2,1,"H"],15:[2,0,"H"],16:[2,0,"H"]},
+ pl2:{1:[1,3,"A"],2:[1,2,"H"],3:[3,1,"H"],4:[2,1,"H"],5:[2,1,"A"],6:[2,1,"H"],7:[1,0,"H"],8:[4,0,"H"],9:[2,1,"H"],10:[3,1,"H"],11:[3,0,"H"],12:[2,1,"H"],13:[2,0,null],14:[0,2,"A"],15:[3,0,"H"],16:[2,1,"H"]},
+ pl3:{1:[0,2,"A"],2:[2,1,"A"],3:[4,0,"H"],4:[1,0,"A"],5:[1,3,"A"],6:[3,1,"H"],7:[2,0,"H"],8:[3,0,"H"],9:[0,1,"H"],10:[3,1,"H"],11:[1,0,"A"],12:[1,1,"H"],13:[1,3,"A"],14:[2,3,"H"],15:[3,0,"H"],16:[1,0,"A"]},
+ pl4:{1:[1,2,"H"],2:[2,1,"H"],3:[2,0,"H"],4:[2,1,"A"],5:[1,2,"H"],6:[3,1,"H"],7:[1,0,"H"],8:[2,0,"H"],9:[1,1,"H"],10:[2,0,"H"],11:[2,0,"H"],12:[1,1,"A"],13:[2,1,"H"],14:[1,0,"H"],15:[3,0,"H"],16:[2,1,"H"]},
+ pl5:{1:[0,1,null],2:[2,1,null],3:[1,0,null],4:[1,1,"H"],5:[1,1,"A"],6:[2,1,null],7:[1,1,"H"],8:[2,0,null],9:[1,1,"H"],10:[2,1,null],11:[2,0,null],12:[1,1,"H"],13:[1,0,null],14:[1,1,"A"],15:[2,0,null],16:[2,0,null]},
+ pl6:{1:[1,2,"A"],2:[2,3,"A"],3:[3,1,"H"],4:[3,2,"H"],5:[1,3,"A"],6:[4,2,"H"],7:[1,2,"A"],8:[4,0,"H"],9:[3,2,"H"],10:[3,0,"H"],11:[4,1,"H"],12:[2,1,"H"],13:[1,1,"H"],14:[1,3,"A"],15:[4,0,"H"],16:[3,2,"H"]},
+ pl7:{1:[0,1,"A"],2:[3,2,"H"],3:[2,0,"H"],4:[2,2,"H"],5:[0,3,"A"],6:[3,0,"H"],7:[1,1,"H"],8:[2,0,"H"],9:[2,1,"H"],10:[4,0,"H"],11:[2,0,"H"],12:[2,2,"H"],13:[1,0,"H"],14:[0,1,"H"],15:[5,0,"H"],16:[2,0,"H"]}
+};
+
+const KO_PAIR={}; KO_MATCHES.forEach(m=>{KO_PAIR[[teamKey(m.h),teamKey(m.a)].sort().join('|')]=m;});
+const koFind=(A,B)=>KO_PAIR[[teamKey(A),teamKey(B)].sort().join('|')]||null;
+let KRES={},KPEN={},KLIVE=[],KPLAYED=[];
+// baked fallback — mirrors knockout.json so the board is never blank offline
+let KO_FALLBACK={matches:[
+ {match:"South Africa vs Canada",score:"0-1",pens:""},{match:"Brazil vs Japan",score:"2-1",pens:""},
+ {match:"Germany vs Paraguay",score:"1-1",pens:"Paraguay"},{match:"Netherlands vs Morocco",score:"1-1",pens:"Morocco"},
+ {match:"Ivory Coast vs Norway",score:"1-2",pens:""},{match:"France vs Sweden",score:"3-0",pens:""},
+ {match:"Mexico vs Ecuador",score:"2-0",pens:""},{match:"England vs DR Congo",score:"2-1",pens:""},
+ {match:"Belgium vs Senegal",score:"3-2",pens:""},{match:"United States vs Bosnia and Herzegovina",score:"2-0",pens:""},
+ {match:"Spain vs Austria",score:"3-0",pens:""},{match:"Portugal vs Croatia",score:"2-1",pens:""},
+ {match:"Switzerland vs Algeria",score:"2-0",pens:""},{match:"Australia vs Egypt",score:"1-1",pens:"Egypt"},
+ {match:"Argentina vs Cape Verde",score:"3-2",pens:""},{match:"Colombia vs Ghana",score:"1-0",pens:""}
+]};
+let KO_CURRENT=KO_FALLBACK;
+
+function koIngest(d){
+  KRES={};KPEN={};KLIVE=[];KPLAYED=[];
+  const list=(d&&d.matches)||[];
+  for(const e of list){
+    const parts=splitMatch(e.match), m=koFind(parts[0],parts[1]); if(!m)continue;
+    const st=scoreState(e.score);
+    if(st.st==='live'){ if(!KLIVE.includes(m.n))KLIVE.push(m.n); continue; }
+    if(st.st==='final'){
+      const lh=teamKey(parts[0])===teamKey(m.h);
+      KRES[m.n]=[lh?+st.sc[0]:+st.sc[1], lh?+st.sc[1]:+st.sc[0]];
+      KPLAYED.push(m.n);
+      if(e.pens && String(e.pens).trim()){
+        const pk=teamKey(e.pens);
+        if(pk===teamKey(m.h))KPEN[m.n]='H'; else if(pk===teamKey(m.a))KPEN[m.n]='A';
+      }
+    }
+  }
+  KPLAYED.sort((a,b)=>a-b);
+  KLIVE=KLIVE.filter(n=>!KRES[n]);
+}
+
+const koFmt=n=>{const r=Math.round(n*10)/10;return Number.isInteger(r)?String(r):r.toFixed(1);};
+const koWin=(h,a)=>h>a?'H':(a>h?'A':'D');
+function koBase(pred,res){
+  if(!pred||pred[0]==null||pred[1]==null||!res)return 0;
+  const ph=+pred[0],pa=+pred[1],rh=+res[0],ra=+res[1];
+  if(ph===rh&&pa===ra)return 3;
+  if(koWin(ph,pa)===koWin(rh,ra))return 2;
+  return 0;
+}
+function koMatchPts(pid,n){
+  const res=KRES[n]; if(!res)return null;
+  const pred=KOPREDS[pid][n]; const base=koBase(pred,res);
+  let pen=0; if(KPEN[n]!==undefined && pred && pred[2] && pred[2]===KPEN[n]) pen=1;
+  const round=(KO_MATCHES.find(m=>m.n===n)||{}).round||'R32'; const mult=KO_MULT[round]||1;
+  return {base,pen,mult,total:(base+pen)*mult,round};
+}
+function koTally(pid){
+  let total=0,exact=0,result=0,pens=0,scored=0;
+  KO_MATCHES.forEach(m=>{const p=koMatchPts(pid,m.n);if(!p)return;scored++;total+=p.total;if(p.base===3)exact++;else if(p.base===2)result++;if(p.pen)pens++;});
+  return {total,exact,result,pens,scored};
+}
+function koStandings(){return PLAYERS.map(pl=>({...pl,...koTally(pl.id)})).sort((a,b)=>b.total-a.total||b.exact-a.exact||b.pens-a.pens||a.name.localeCompare(b.name));}
+function koDunceSet(){
+  const st=koStandings(); if(!st.some(p=>p.scored>0))return new Set();
+  const tot=st.map(p=>p.total),mn=Math.min(...tot),mx=Math.max(...tot);
+  if(mn===mx)return new Set();
+  return new Set(st.filter(p=>p.total===mn).map(p=>p.id));
+}
+function koRoundHead(round){
+  const d=document.createElement('div');d.className='group-head';
+  d.innerHTML=`<span class="group-tag" style="color:var(--ko);border-color:rgba(255,138,61,.35);background:linear-gradient(160deg,rgba(255,138,61,.18),rgba(255,138,61,.04))">32</span><span class="gt">${KO_RLABEL[round]}</span><span class="gl"></span><span class="ko-chip mult">×${KO_MULT[round]} points</span>`;
+  return d;
+}
+
+/* KO RESULTS */
+function renderKoResults(){
+  const wrap=$('#koResultsList');wrap.innerHTML='';
+  wrap.appendChild(koRoundHead('R32'));
+  KO_MATCHES.forEach(m=>{
+    const r=KRES[m.n], live=KLIVE.includes(m.n), done=!!r;
+    const hw=done&&r[0]>r[1], aw=done&&r[1]>r[0];
+    let scoreHtml,ftHtml;
+    if(done){
+      scoreHtml=`<div class="ko-fs"><span class="${hw?'gw':''}">${r[0]}</span><span class="dash">–</span><span class="${aw?'gw':''}">${r[1]}</span></div>`;
+      ftHtml=KPEN[m.n]?`<span class="pen-tag">🅟 PENS · <b>${KPEN[m.n]==='H'?m.h:m.a}</b></span>`:`<span class="ft-ko">FULL TIME</span>`;
+    } else if(live){ scoreHtml=`<div class="ko-fs none">LIVE</div>`; ftHtml=`<span class="ft-ko" style="color:#ff5252">● PLAYING</span>`; }
+    else { scoreHtml=`<div class="ko-fs none">— vs —</div>`; ftHtml=`<span class="upcoming">NOT PLAYED</span>`; }
+    const c=document.createElement('div');c.className='komatch';
+    c.innerHTML=`<span class="mn">R32 · #${m.n}</span><span class="when">${m.dow} ${m.d} · ${m.t}</span>
+      <div class="side home"><span class="flag">${flag(m.h)}</span><span class="tname ${hw?'win':aw?'lose':''}">${m.h}</span></div>
+      <div class="ko-center">${scoreHtml}${ftHtml}</div>
+      <div class="side away"><span class="flag">${flag(m.a)}</span><span class="tname ${aw?'win':hw?'lose':''}">${m.a}</span></div>`;
+    wrap.appendChild(c);
+  });
+}
+
+/* KO STANDINGS */
+function renderKoBoard(){
+  const st=koStandings(), dunce=koDunceSet();
+  const pod=$('#koPodium'),list=$('#koBoardList');pod.innerHTML='';list.innerHTML='';
+  const played=$('#koPlayed'); if(played)played.textContent=KPLAYED.length;
+  [1,0,2].forEach(idx=>{
+    const r=st[idx];if(!r)return;const rank=idx+1;
+    const el=document.createElement('div');el.className=`pod g${rank}`;
+    el.innerHTML=`${rank===1?'<div class="crown">👑</div>':''}
+      <div class="rk">${rank===1?'1ST':rank===2?'2ND':'3RD'}</div>
+      <div class="avatar" style="margin:0 auto">${crewmate(r.color,dunce.has(r.id))}</div>
+      <div class="nm">${r.name}</div>
+      <div class="sc" style="color:var(--ko)">${koFmt(r.total)}<small>PTS</small></div>
+      <div class="meta">${r.exact} exact · ${r.result} result · ${r.pens} pen</div>`;
+    pod.appendChild(el);
+  });
+  const cols=[...KLIVE.map(n=>({n,live:true})), ...KPLAYED.slice().reverse().map(n=>({n,live:false}))];
+  if(cols.length){
+    let head=`<th class="sticky">Player</th><th class="ptc">PTS</th>`;
+    cols.forEach(({n,live})=>{
+      const m=KO_MATCHES.find(x=>x.n===n);
+      if(live){ head+=`<th class="mhdr lvh"><span class="fl">${flag(m.h)} ${flag(m.a)}</span><span class="rs"><span class="liveb">● LIVE</span></span></th>`; }
+      else{ const r=KRES[n];const hw=r[0]>r[1],aw=r[1]>r[0];
+        let sub=`<span style="${hw?'color:var(--ko)':''}">${r[0]}</span>–<span style="${aw?'color:var(--ko)':''}">${r[1]}</span>`;
+        if(KPEN[n]) sub+=` <span style="color:var(--sky);font-weight:700">🅟${(KPEN[n]==='H'?m.h:m.a).slice(0,3).toUpperCase()}</span>`;
+        head+=`<th class="mhdr"><span class="fl">${flag(m.h)} ${flag(m.a)}</span><span class="rs">${sub}</span></th>`; }
+    });
+    let body='';
+    st.forEach((r,i)=>{
+      let cells='';
+      cols.forEach(({n,live})=>{ const pk=KOPREDS[r.id][n];
+        if(live){ cells+=`<td><span class="pick live">${pk[0]}-${pk[1]}</span></td>`; }
+        else{ const pp=koMatchPts(r.id,n); const c=pp.base===3?'e':pp.base===2?'r':'m';
+          cells+=`<td><span class="pick ${c} ${pp.pen?'pen':''}" title="${koFmt(pp.total)} pts${pp.pen?' · incl. +1 pen':''}">${pk[0]}-${pk[1]}</span></td>`; }});
+      body+=`<tr data-id="${r.id}"><td class="sticky"><div class="pcell"><span class="rkc">${i+1}</span><span class="av">${crewmate(r.color,dunce.has(r.id))}</span><span class="pn" title="${r.name}">${r.name}</span></div></td><td class="totc ko">${koFmt(r.total)}</td>${cells}</tr>`;
+    });
+    list.innerHTML=`<div class="smx-wrap"><table class="smx"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>
+      <div class="smx-legend"><span><i class="e"></i>Exact +3</span><span><i class="r"></i>Result +2</span><span><i class="m"></i>Missed</span><span><i class="pk"></i>+1 shootout (ring)</span><span style="color:var(--ko)">everything ×1.5</span></div>`;
+    list.querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>openKoPlayer(tr.dataset.id));
+  } else {
+    list.innerHTML=`<div class="callout">No knockout results recorded yet — the table ranks itself once R32 games finish.</div>`;
+  }
+}
+
+/* KO BY PLAYER */
+let koCur=PLAYERS[0].id;
+function renderKoPlayer(){
+  const pl=PLAYERS.find(p=>p.id===koCur);const t=koTally(pl.id);
+  const st=koStandings();const rk={};st.forEach((p,i)=>rk[p.id]=i+1);
+  $('#koWhoColor').style.background=pl.color;
+  $('#koPlayerSummary').innerHTML=`<div class="psum">
+    <div class="avatar">${crewmate(pl.color,koDunceSet().has(pl.id))}</div>
+    <div><div class="pn">${pl.name}</div>
+      <div class="prk">${t.scored?`Knockout rank <b style="color:var(--ink)">#${rk[pl.id]}</b> of ${PLAYERS.length} · ${t.scored}/16 R32 scored`:'Picks locked · awaiting results'}</div></div>
+    <div class="pstats">
+      <div><div class="v tot ko">${koFmt(t.total)}</div><div class="k">Points</div></div>
+      <div><div class="v ex">${t.exact}</div><div class="k">Exact</div></div>
+      <div><div class="v">${t.result}</div><div class="k">Result</div></div>
+      <div><div class="v" style="color:var(--sky)">${t.pens}</div><div class="k">Pens</div></div>
+    </div></div>`;
+  const wrap=$('#koPlayerList');wrap.innerHTML='';
+  wrap.appendChild(koRoundHead('R32'));
+  KO_MATCHES.forEach(m=>{
+    const pk=KOPREDS[pl.id][m.n], r=KRES[m.n], pp=r?koMatchPts(pl.id,m.n):null;
+    const cls=!r?'pending':pp.base===3?'exact ko-acc':pp.base===2?'result':'miss';
+    const finVal=r?`${r[0]}–${r[1]}`:'—';
+    let ptsHtml;
+    if(!r) ptsHtml='<span class="pts pp">AWAITING</span>';
+    else{
+      const pc=pp.base===3?'p3':pp.base===2?'p2':'p0';
+      const lbl=pp.base===3?'EXACT +3':pp.base===2?'RESULT +2':'MISS +0';
+      ptsHtml=`<span class="pts ${pc}">${lbl}</span> <span class="mult-pill">×1.5 → ${koFmt(pp.total)}</span>`;
+    }
+    let penHtml='';
+    if(pk[2]){ const myPen=pk[2]==='H'?m.h:m.a;
+      if(r&&KPEN[m.n]) penHtml=`<div class="pen-pick ${pk[2]===KPEN[m.n]?'hit':'miss'}">🅟 ${myPen}${pk[2]===KPEN[m.n]?' ✓ +1':' ✗'}</div>`;
+      else penHtml=`<div class="pen-pick miss">🅟 ${myPen}</div>`;
+    }
+    const c=document.createElement('div');c.className='pp '+cls;
+    c.innerHTML=`<span class="mn">R32 · #${m.n}</span>
+      <div class="side home"><span class="flag">${flag(m.h)}</span><span class="tname">${m.h}</span></div>
+      <div class="pp-center"><div class="scorepair">
+        <div class="sbox pick"><div class="lab">Pick</div><div class="val">${pk[0]}–${pk[1]}</div></div>
+        <div class="divline"></div>
+        <div class="sbox fin"><div class="lab">Final</div><div class="val ${r?'':'none'}">${finVal}</div></div>
+      </div>${ptsHtml}${penHtml}</div>
+      <div class="side away"><span class="flag">${flag(m.a)}</span><span class="tname">${m.a}</span></div>`;
+    wrap.appendChild(c);
+  });
+}
+function koSyncSel(){
+  const sel=$('#koWhoSelect');if(!sel)return;sel.innerHTML='';
+  PLAYERS.forEach(pl=>{const o=document.createElement('option');o.value=pl.id;o.textContent=pl.name;if(pl.id===koCur)o.selected=true;sel.appendChild(o);});
+  const c=PLAYERS.find(p=>p.id===koCur);$('#koWhoColor').style.background=c?c.color:'transparent';
+}
+function openKoPlayer(id){
+  koCur=id;koSyncSel();
+  $$('#tabsKo .tab').forEach(x=>x.classList.remove('active'));
+  $('#tabsKo .tab[data-koview="ko-player"]').classList.add('active');
+  curKoView='ko-player';
+  $$('.view').forEach(v=>v.classList.remove('show'));$('#view-ko-player').classList.add('show');
+  renderKoPlayer();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===== PHASE + KO TAB WIRING ===== */
+let PHASE='ko', curKoView='ko-board';
+function showKoView(v){
+  curKoView=v;
+  $$('#tabsKo .tab').forEach(x=>x.classList.toggle('active',x.dataset.koview===v));
+  $$('.view').forEach(s=>s.classList.remove('show'));
+  const el=$('#view-'+v); if(el)el.classList.add('show');
+  if(v==='ko-board')renderKoBoard(); else if(v==='ko-results')renderKoResults(); else renderKoPlayer();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showGroupCurrent(){
+  $$('.view').forEach(s=>s.classList.remove('show'));
+  const at=$('#tabs .tab.active')||$('#tabs .tab'); const v=at.dataset.view;
+  $('#view-'+v).classList.add('show');
+  if(v==='board')renderBoard();else if(v==='player')renderPlayer();else if(v==='players')renderPlayers();else renderResults();
+}
+function setPhase(ph){
+  PHASE=ph;
+  $$('.pseg').forEach(b=>b.classList.toggle('active',b.dataset.phase===ph));
+  const isKo=ph==='ko';
+  $('#tabsKo').hidden=!isKo; $('#tabs').hidden=isKo;
+  if(isKo) showKoView(curKoView); else showGroupCurrent();
+}
+function koRerender(){ refreshStats(); koSyncSel(); if(curKoView==='ko-board')renderKoBoard(); else if(curKoView==='ko-results')renderKoResults(); else renderKoPlayer(); }
+$$('.pseg').forEach(b=>b.onclick=()=>setPhase(b.dataset.phase));
+$$('#tabsKo .tab').forEach(t=>t.onclick=()=>showKoView(t.dataset.koview));
+$('#koWhoSelect').onchange=e=>{koCur=e.target.value;koSyncSel();renderKoPlayer();};
+
+async function loadKnockout(){
+  try{ const r=await fetch('knockout.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok)return;
+    const d=await r.json(); KO_CURRENT=d; koIngest(KO_CURRENT);
+    refreshStats(); if(PHASE==='ko')koRerender();
+  }catch(e){/* keep fallback */}
+}
+koIngest(KO_CURRENT);   // fallback so board renders instantly
+koSyncSel();
+setPhase('ko');          // land on the knockout standings
+loadKnockout();
+setInterval(loadKnockout,60000);
 </script>
 
 <script>
