@@ -650,7 +650,6 @@ function syncSelector(){
 function refreshStats(){
   const n=Object.values(RES).filter(v=>v[0]!==""&&v[1]!=="").length;
   $('#statResults').textContent=n;$('#statPlayers').textContent=PLAYERS.length;
-  if(typeof KRES!=='undefined'){ const k=Object.keys(KRES).length; const el=$('#statKo'); if(el) el.textContent=k; }
 }
 
 $$('#tabs .tab').forEach(t=>t.onclick=()=>{
@@ -941,7 +940,8 @@ function setPhase(ph){
   $('#tabsKo').hidden=!isKo; $('#tabs').hidden=isKo;
   if(isKo) showKoView(curKoView); else showGroupCurrent();
 }
-function koRerender(){ refreshStats(); koSyncSel(); if(curKoView==='ko-board')renderKoBoard(); else if(curKoView==='ko-results')renderKoResults(); else renderKoPlayer(); }
+function koStat(){ const el=$('#statKo'); if(el) el.textContent=Object.keys(KRES).length; }
+function koRerender(){ refreshStats(); koStat(); koSyncSel(); if(curKoView==='ko-board')renderKoBoard(); else if(curKoView==='ko-results')renderKoResults(); else renderKoPlayer(); }
 $$('.pseg').forEach(b=>b.onclick=()=>setPhase(b.dataset.phase));
 $$('#tabsKo .tab').forEach(t=>t.onclick=()=>showKoView(t.dataset.koview));
 $('#koWhoSelect').onchange=e=>{koCur=e.target.value;koSyncSel();renderKoPlayer();};
@@ -949,10 +949,11 @@ $('#koWhoSelect').onchange=e=>{koCur=e.target.value;koSyncSel();renderKoPlayer()
 async function loadKnockout(){
   try{ const r=await fetch('knockout.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok)return;
     const d=await r.json(); KO_CURRENT=d; koIngest(KO_CURRENT);
-    refreshStats(); if(PHASE==='ko')koRerender();
+    koStat(); if(PHASE==='ko')koRerender();
   }catch(e){/* keep fallback */}
 }
 koIngest(KO_CURRENT);   // fallback so board renders instantly
+koStat();
 koSyncSel();
 setPhase('ko');          // land on the knockout standings
 loadKnockout();
