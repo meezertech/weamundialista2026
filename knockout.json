@@ -1,0 +1,22 @@
+{
+  "_README": "Knockout results — edit the \"score\" and \"pens\" fields only. score: \"\" = upcoming, \"LIVE\" = in progress (shown but unscored), \"2-1\" = final (regulation/ET score). pens: leave \"\" unless the match was a draw and went to a shootout — then put the name of the team that won the shootout (e.g. \"Morocco\"). Team spelling is forgiving; home team is on the left.",
+  "round": "R32",
+  "matches": [
+    { "match": "South Africa vs Canada"                 , "score": "0-1", "pens": "" },
+    { "match": "Brazil vs Japan"                         , "score": "2-1", "pens": "" },
+    { "match": "Germany vs Paraguay"                     , "score": "1-1", "pens": "Paraguay" },
+    { "match": "Netherlands vs Morocco"                  , "score": "1-1", "pens": "Morocco" },
+    { "match": "Ivory Coast vs Norway"                   , "score": "1-2", "pens": "" },
+    { "match": "France vs Sweden"                        , "score": "3-0", "pens": "" },
+    { "match": "Mexico vs Ecuador"                       , "score": "2-0", "pens": "" },
+    { "match": "England vs DR Congo"                     , "score": "2-1", "pens": "" },
+    { "match": "Belgium vs Senegal"                      , "score": "3-2", "pens": "" },
+    { "match": "United States vs Bosnia and Herzegovina" , "score": "2-0", "pens": "" },
+    { "match": "Spain vs Austria"                        , "score": "3-0", "pens": "" },
+    { "match": "Portugal vs Croatia"                     , "score": "2-1", "pens": "" },
+    { "match": "Switzerland vs Algeria"                  , "score": "2-0", "pens": "" },
+    { "match": "Australia vs Egypt"                      , "score": "1-1", "pens": "Egypt" },
+    { "match": "Argentina vs Cape Verde"                 , "score": "3-2", "pens": "" },
+    { "match": "Colombia vs Ghana"                       , "score": "1-0", "pens": "" }
+  ]
+}
