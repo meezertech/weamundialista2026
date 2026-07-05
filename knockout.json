@@ -18,5 +18,10 @@
     { "match": "Australia vs Egypt"                      , "score": "1-1", "pens": "Egypt" },
     { "match": "Argentina vs Cape Verde"                 , "score": "3-2", "pens": "" },
     { "match": "Colombia vs Ghana"                       , "score": "1-0", "pens": "" }
+  ],
+  "_README_bracket": "Later rounds (R16+) for the Bracket view only — NOT scored. Enter as games finish; teams auto-fill from earlier winners, so only add a row once both teams are known. Same score/pens format.",
+  "bracket": [
+    { "match": "Canada vs Morocco"   , "score": "0-3", "pens": "" },
+    { "match": "Paraguay vs France"  , "score": "0-1", "pens": "" }
   ]
 }
