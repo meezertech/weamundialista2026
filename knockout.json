@@ -21,7 +21,20 @@
   ],
   "_README_bracket": "Later rounds (R16+) for the Bracket view only — NOT scored. Enter as games finish; teams auto-fill from earlier winners, so only add a row once both teams are known. Same score/pens format.",
   "bracket": [
-    { "match": "Canada vs Morocco"   , "score": "0-3", "pens": "" },
-    { "match": "Paraguay vs France"  , "score": "0-1", "pens": "" }
+    { "match": "Canada vs Morocco"          , "score": "0-3", "pens": "" },
+    { "match": "Paraguay vs France"         , "score": "0-1", "pens": "" },
+    { "match": "United States vs Belgium"   , "score": "1-4", "pens": "" },
+    { "match": "Portugal vs Spain"          , "score": "0-1", "pens": "" },
+    { "match": "Brazil vs Norway"           , "score": "1-2", "pens": "" },
+    { "match": "Mexico vs England"          , "score": "2-3", "pens": "" },
+    { "match": "Switzerland vs Colombia"    , "score": "0-0", "pens": "Switzerland" },
+    { "match": "Argentina vs Egypt"         , "score": "3-2", "pens": "" },
+    { "match": "France vs Morocco"          , "score": "2-0", "pens": "" },
+    { "match": "Spain vs Belgium"           , "score": "2-1", "pens": "" },
+    { "match": "Norway vs England"          , "score": "1-2", "pens": "" },
+    { "match": "Argentina vs Switzerland"   , "score": "3-1", "pens": "" },
+    { "match": "France vs Spain"            , "score": "0-2", "pens": "" },
+    { "match": "England vs Argentina"       , "score": "1-2", "pens": "" },
+    { "match": "Spain vs Argentina"         , "score": "1-0", "pens": "" }
   ]
 }
